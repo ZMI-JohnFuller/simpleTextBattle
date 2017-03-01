@@ -4,25 +4,24 @@ import sys
 import random
 
 # enemy
+
 emHP = 50
 eATK = 9
 eDEF = 4
-eDEX = 5
 # hero
 hmHP = 100
 hMHP = 100
 hATK = 10
 hDEF = 5
-hDEX = 5
 
 
 def display_options():
     print('Welcome to a basic text battle\nWhat would you like to do?\n1 - Fight | 2 - Quit\n')
     user_choice = input()
-    if user_choice in [1,2]:
-        if user_choice == 2:
+    if user_choice in ['1', '2']:
+        if user_choice == '2':
             sys.exit('Goodbye!')
-        if user_choice == 1:
+        if user_choice == '1':
             print('A monster attacks you!')
             battle_handler()
     else:
@@ -31,45 +30,41 @@ def display_options():
 
 def battle_handler():
     check_state()
-    if False:
-        print('Game over man!')
-        input('Enter any key to continue')
-        display_options()
-    elif True:
-        print('HERO HP:' + str(hmHP) + '/' + str(hMHP) + '\nWhat do you want to do? \n[1]-ATTACK | [2]-QUIT\n')
-        user_choice = input()
-        if user_choice == 2:
-            display_options()
-        if user_choice == 1:
-            damage_handler()
+    print('What would you like to do?\n1-Attack | 2-Quit\n')
+    user_choice = input()
+    if user_choice in ['1','2']:
+        if user_choice == '2':
+            sys.exit('Goodbye!')
+        if user_choice == '1':
+            print('You attack!')
+            damage_total = hATK - eDEF + random.randint(0, 10)
+            print('Your attack deals ' + damage_total + ' damage!\n')
+            emHP -= damage_total
+            enemy_turn()
 
 
-def damage_handler(damage_total):
-    rand_dodge = random.randint(0, 100)
-    rand_dmg = random.randint(0,10)
-    if rand_dodge < 10:
-        ('The attack missed!')
-    else:
-        damage_total -= hATK - eDEF + rand_dmg
-        print ('The attack hit for ' + damage_total + ' damage!\n')
-        check_state(damage_total, 0)
+def check_state():
+    if emHP <= 0 or hmHP <= 0:
+        if emHP <= 0:
+            win()
+        if hmHP <= 0:
+            lose()
 
-
-def check_state(emHP,hmHP):
-
-    if emHP > 0:
-        if hmHP > 0:
-            if eDEX > hDEX:
-                enemy_turn()
-            else:
-                return True
-        else:
-            return False
-    else:
-        return False
 
 def enemy_turn():
-    d
+    print('The enemy attacks!')
+    damage_total = eATK - hDEF + random.randint(0, 10)
+    print('Their attack does ' + damage_total + ' to you!\n')
+    hmHP -= damage_total
+
+
+def win():
+    print('You win!')
+
+
+def lose():
+    print('Game over man!')
+
 
 def main():
     while True:
