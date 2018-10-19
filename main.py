@@ -7,7 +7,7 @@ import time
 
 # enemy
 
-emHP = 50
+emHP = random.randrange(50, 75)
 eMHP = 50
 eATK = 9
 eDEF = 4
@@ -37,7 +37,7 @@ def battle_handler():
     check_state()
     print('What would you like to do?\n1-Attack | 2-Quit\n')
     print('HP:' + str(hmHP) + '/' + str(hMHP))
-    print('HP:' + str(emHP) + '/' + str(eMHP))
+    print('MP:' + str(emHP) + '/' + str(eMHP))
     user_choice = input()
     if user_choice in ['1', '2']:
         if user_choice == '2':
@@ -74,7 +74,7 @@ def enemy_turn():
     print('The enemy attacks!')
     winsound.PlaySound('.\hit.wav', winsound.SND_ASYNC)
     damage_total = eATK - hDEF + random.randint(0, 10)
-    print('Their attack does ' + str(damage_total) + ' to you!\n')
+    print('Their attack does ' + str(damage_total) + ' damage to you!\n')
     hmHP -= damage_total
     check_state()
     battle_handler()
